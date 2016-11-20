@@ -19,7 +19,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     player = Player.get_instance()
-    player.current_playlist = Playlist(["/home/mat-bi/tb.mp3", "/home/mat-bi/tb2.mp3"])
+    player.current_playlist = Playlist([])
     player.play_track()
     global ui
     ui = Ui_MainWindow()
@@ -27,7 +27,6 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     ui.playPause.clicked.connect(pause)
     ui.volumeControl.valueChanged.connect(value_changed)
-    ui.listView.
     MainWindow.show()
     sys.exit(app.exec_())
 
