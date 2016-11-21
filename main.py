@@ -1,12 +1,18 @@
 import os
 
 from PyQt5.QtCore import QAbstractItemModel
+from PyQt5.QtCore import QAbstractListModel
 from PyQt5.QtCore import QDir
 from PyQt5.QtCore import QModelIndex
+from PyQt5.QtCore import QObject
 from PyQt5.QtCore import QStringListModel
 from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QVariant
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QColor
 from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QPalette
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QFileSystemModel
 
@@ -19,8 +25,8 @@ from PlaylistFile import PlaylistFile
 
 old_volume = 100
 
-
-class MyListModel(QAbstractItemModel):
+'''
+class MyListModel(QAbstractListModel):
     def __init__(self, parent=None):
         QAbstractItemModel.__init__(self)
         self.__data = Playlist([])
@@ -29,14 +35,21 @@ class MyListModel(QAbstractItemModel):
         if not QModelIndex.isValid():
             return None
 
-        if QModelIndex.row() > len(self.__data):
-            return None
+        return QVariant(str(self.__data[QModelIndex.row()]))
 
-        if role == Qt.DisplayRole or role == Qt.EditRole:
-            return os.path.basename(str(self.__data[QModelIndex.row()]))
+    def setDataList(self, playlist):
+        self.__data = playlist
+        self.beginInsertRows(self.createIndex(0,len(self.__data)-1),0,len(self.__data)-1)
+        self.endInsertRows()
+
+    def rowCount(self, parent=None, *args, **kwargs):
+        return len(self.__data)
+
+
 
     def columnCount(self, parent=None, *args, **kwargs):
         return 1
+
 
     def flags(self, QModelIndex):
         flags = super(MyListModel, self).flags(QModelIndex)
@@ -91,9 +104,26 @@ class MyListModel(QAbstractItemModel):
         self.__data.track_change_place(len(self.__data) - 1, QModelIndex)
         self.dataChanged.emit(QModelIndex, QModelIndex)
         return True
+'''
 
-    def setDataList(self, playlist):
-        self.__data = playlist
+def ciemny_click():
+    global ui, MainWindow
+    ui.jasny.setIcon(QIcon("Grafiki/Motyw-off.png"))
+    ui.ciemny.setIcon(QIcon("Grafiki/Motyw-on.png"))
+    ui.treeView.setStyleSheet("* {background-color: #000A23;}")
+    ui.playlista.setStyleSheet("* {background-color: #000A23}")
+
+    MainWindow.setStyleSheet("* {background-color: #000A23;} QMainWindow {  color: #00BBFF;} QPushButton { background-color: #000A23}; Line {background-color: #000A23};")
+
+
+def jasny_click():
+    global ui, MainWindow
+    ui.jasny.setIcon(QIcon("Grafiki/Motyw-on.png"))
+    ui.ciemny.setIcon(QIcon("Grafiki/Motyw-off.png"))
+    ui.treeView.setStyleSheet("* {background-color: #FFFFFB; color: #00BBFF;}")
+    ui.playlista.setStyleSheet("* {background-color: #FFFFFB}")
+    MainWindow.setStyleSheet("QMainWindow { background-color: #FFFFFB; color: #00BBFF;} #treeView { background-color: #FFFFFB} #playlista { background-color: #FFFFFB }")
+    #palette.setColorGroup()
 
 
 def pause():
@@ -105,6 +135,10 @@ def set_volume(value):
     ui.label_2.setText("{}%".format(value))
     ui.volumeControl.setValue(value)
     Player.get_instance().volume = value
+    if value == 0:
+        ui.mute.setIcon(QIcon("Grafiki/Mute-mowp.png"))
+    else:
+        ui.mute.setIcon(QIcon("Grafiki/Speaker-mowp.png"))
 
 
 def value_changed(value):
@@ -113,11 +147,11 @@ def value_changed(value):
     else:
         set_volume(value)
 
-
+playlist = Playlist([])
 def wczytaj_onclick():
     from PyQt5.QtWidgets import QWidget
     import os
-    global ui
+    global ui, playlist
 
     class Widget(QWidget):
         def __init__(self):
@@ -127,8 +161,11 @@ def wczytaj_onclick():
             fileName, _ = QFileDialog.getOpenFileName(self, 'Wczytaj playlistę', '/home',
                                                       filter="Mowp file (*.mowp.xml)")
             playlist = PlaylistFile.open(str(fileName))
-            model = MyListModel()
-            model.setDataList(playlist)
+            model = QStringListModel()
+            playlist2 = []
+            for track in playlist:
+                playlist2.append(str(track))
+            model.setStringList(playlist2)
             ui.playlista.setModel(model)
 
     widget = Widget()
@@ -142,8 +179,9 @@ def mute_clicked():
         ui.mute.setIcon(QIcon('Grafiki/Speaker-mowp.png'))
 
     else:
-        set_volume(0)
         old_volume = Player.get_instance().volume
+        set_volume(0)
+
         ui.mute.setIcon(QIcon('Grafiki/Mute-mowp.png'))
 
 
@@ -207,43 +245,61 @@ def random_onclick():
         ui.random.setIcon(QIcon("Grafiki/shuffleOff.png"))
 
 
+class Signal(QObject):
+    signal = pyqtSignal()
+
+    def connect(self,func):
+        self.signal.connect(timer_start)
+
+    def emit(self):
+        self.signal.emit()
+
+
 def ustaw_czas_calkowity(args):
     args["user"]["czasCalkowity"].setText("/{}:{}".format(int(args["length"] / 60), int(args["length"] % 60)))
 
 czas_qtimer = QTimer()
 
+def timer_start():
+    global  czas_qtimer
+    czas_qtimer.start()
+czas = 0
 def co_sekunde_ustaw_czas(event=None):
     global ui
     czas = Player.get_instance().time
     ui.label.setText("{}:{}".format(int(czas/60), int(czas%60)))
 
+
 def ustaw_czas(args):
-    czas_qtimer = QTimer()
+    global czas_qtimer
     ui.label.setText("00:00")
-    czas_qtimer.setInterval(1)
+    czas_qtimer.setInterval(1000)
     czas_qtimer.timeout.connect(co_sekunde_ustaw_czas)
-    czas_qtimer.start()
+    Signal.emit(Signal())
 
 if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
+    global MainWindow
     MainWindow = QtWidgets.QMainWindow()
     player = Player.get_instance()
-
     global ui
     ui = Ui_MainWindow()
 
     ui.setupUi(MainWindow)
+
+
     ui.playPause.clicked.connect(pause)
     ui.volumeControl.valueChanged.connect(value_changed)
-
     ui.mute.clicked.connect(mute_clicked)
     model = QFileSystemModel()
     ui.wczytaj.clicked.connect(wczytaj_onclick)
     ui.brakRadio.clicked.connect(brakRadio_clicked)
     ui.utworRadio.clicked.connect(utworRadio_clicked)
     ui.random.clicked.connect(random_onclick)
+    ui.ciemny.clicked.connect(ciemny_click)
+    ui.jasny.clicked.connect(jasny_click)
     EventManager.get_instance().add_event(Event.MediaPaused, ustaw_play, {"playPause": ui.playPause})
     EventManager.get_instance().add_event(Event.MediaPlay, ustaw_pauza, {"playPause": ui.playPause})
     EventManager.get_instance().add_event(Event.MediaStarted, ustaw_play, {"playPause": ui.playPause})
@@ -251,22 +307,24 @@ if __name__ == "__main__":
     EventManager.get_instance().add_event(Event.MediaPlay, ustaw_czas_calkowity, {"czasCalkowity": ui.czasCalkowity})
     EventManager.get_instance().add_event(Event.MediaStarted, ustaw_czas_calkowity, {"czasCalkowity": ui.czasCalkowity})
     EventManager.get_instance().add_event(Event.MediaStarted, ustaw_czas)
-
+    signal = Signal()
+    signal.connect(timer_start)
     ui.next.clicked.connect(next_clicked)
     ui.previous.clicked.connect(previous_clicked)
     ui.listaRadio.clicked.connect(lista_clicked)
     ui.stop.clicked.connect(stop_clicked)
-
-    model.setRootPath(QDir.currentPath())
+    model.setRootPath(QDir.homePath())
     model.sort(0)
     model.setNameFilters(["*.mp3", ".ogg"])
     model.setNameFilterDisables(False)
+    ui.playlista.setDragEnabled(True)
+    ui.playlista.viewport().setAcceptDrops(True)
     ui.treeView.setModel(model)
+    ui.treeView.setRootIndex(model.setRootPath(QDir.homePath()))
     ui.treeView.hideColumn(1)
     ui.treeView.hideColumn(2)
     ui.treeView.hideColumn(3)
     ui.treeView.hideColumn(4)
-
     MainWindow.show()
     player.current_playlist = Playlist(["/home/mat-bi/tb.mp3", "/home/mat-bi/tb2.mp3"])
     player.play_track()
