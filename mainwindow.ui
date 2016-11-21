@@ -193,7 +193,8 @@
      <property name="icon">
       <iconset>
        <normaloff>Grafiki/Speaker-mowp.png</normaloff>
-       <disabledoff>Grafiki/Mute-mowp.png</disabledoff>Grafiki/Speaker-mowp.png</iconset>
+       <disabledoff>Grafiki/Mute-mowp.png</disabledoff>
+       <activeoff>Grafiki/Mute-mowp.png</activeoff>Grafiki/Speaker-mowp.png</iconset>
      </property>
      <property name="shortcut">
       <string>M</string>
@@ -699,6 +700,9 @@
        <width>501</width>
        <height>351</height>
       </size>
+     </property>
+     <property name="acceptDrops">
+      <bool>true</bool>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(10, 20, 50)</string>
