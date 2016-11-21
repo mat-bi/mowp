@@ -13,8 +13,10 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QColor
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QPalette
+from PyQt5.QtWidgets import QAbstractItemView
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtWidgets import QFileSystemModel
+from PyQt5.QtWidgets import QMessageBox
 
 from Event import Event
 from Track import Track
@@ -162,6 +164,9 @@ def wczytaj_onclick():
                                                       filter="Mowp file (*.mowp.xml)")
             playlist = PlaylistFile.open(str(fileName))
             model = QStringListModel()
+            supp = model.supportedDragActions()
+            #model.fl
+
             playlist2 = []
             for track in playlist:
                 playlist2.append(str(track))
@@ -249,37 +254,125 @@ class Signal(QObject):
     signal = pyqtSignal()
 
     def connect(self,func):
-        self.signal.connect(timer_start)
+        self.signal.connect(func)
 
     def emit(self):
         self.signal.emit()
 
 
+def format(czas):
+    if czas < 10:
+        return "0{}".format(czas)
+    return czas
+
 def ustaw_czas_calkowity(args):
-    args["user"]["czasCalkowity"].setText("/{}:{}".format(int(args["length"] / 60), int(args["length"] % 60)))
+    args["user"]["czasCalkowity"].setText("/{}:{}".format(format(int(args["length"] / 60)), format(int(args["length"] % 60))))
 
 czas_qtimer = QTimer()
 
+def trackUp_clicked():
+    global ui
+    items = ui.playlista.selectionModel().selectedIndexes()
+    if len(items) > 0:
+        list = ui.playlista.model().stringList()
+        if items[0].row() == 0:
+            return
+        object = list[items[0].row()-1]
+        list[items[0].row()-1] = list[items[0].row()]
+        list[items[0].row()] = object
+
+        ui.playlista.model().setStringList(list)
+        playlist.track_change_place(track=items[0].row(), number=items[0].row()-1)
+
+def trackDown_clicked():
+    global ui
+    items = ui.playlista.selectionModel().selectedIndexes()
+    if len(items) > 0:
+        list = ui.playlista.model().stringList()
+        if items[0].row() == len(list)-1:
+            return
+        object = list[items[0].row()]
+        list[items[0].row()] = list[items[0].row()+1]
+        list[items[0].row()+1] = object
+
+        ui.playlista.model().setStringList(list)
+        playlist.track_change_place(track=items[0].row(), number=items[0].row()+1)
+
+
 def timer_start():
     global  czas_qtimer
-    czas_qtimer.start()
+    czas_qtimer.start(1000)
+
+
 czas = 0
 def co_sekunde_ustaw_czas(event=None):
     global ui
     czas = Player.get_instance().time
-    ui.label.setText("{}:{}".format(int(czas/60), int(czas%60)))
+    ui.label.setText("{}:{}".format(format(int(czas/60)), format(int(czas%60))))
 
 
 def ustaw_czas(args):
     global czas_qtimer
     ui.label.setText("00:00")
-    czas_qtimer.setInterval(1000)
     czas_qtimer.timeout.connect(co_sekunde_ustaw_czas)
-    Signal.emit(Signal())
+    signal = Signal()
+    signal.emit()
+
+playlist = Playlist([])
+
+def dodaj_clicked():
+    global ui, playlist
+    list = ui.treeView.selectionModel().selectedIndexes()
+    model = ui.treeView.model()
+    row = -1
+    for index in list:
+        if index.row() != row and index.column() == 0:
+            fileInfo = model.fileInfo(index)
+            playlist.add_track(Track(str(fileInfo.filePath())))
+            list = ui.playlista.model().stringList()
+            list.append(str(fileInfo.filePath()))
+            ui.playlista.model().setStringList(list)
+            row = index.row()
+
+def remove_clicked():
+    global ui
+    items = ui.playlista.selectionModel().selectedIndexes()
+    if len(items) > 0:
+        list = ui.playlista.model().stringList()
+        del list[items[0].row()]
+        ui.playlista.model().setStringList(list)
+        playlist.remove_track(number=items[0].row())
+
+def zapisz_clicked():
+
+        from PyQt5.QtWidgets import QWidget
+        import os
+        global ui, playlist
+
+        class Widget(QWidget):
+            def __init__(self):
+                super().__init__()
+
+            def showDialog(self):
+                if len(playlist) == 0:
+                    msgBox = QMessageBox()
+                    msgBox.setText("Pusta playlista!")
+                    msgBox.exec()
+                    return
+                fileName, _ = QFileDialog.getSaveFileName(self, 'Wczytaj playlistę', '/home',
+                                                          filter="Mowp file (*.mowp.xml)")
+                PlaylistFile.write(fileName, playlist)
+
+
+        widget = Widget()
+        widget.showDialog()
+
+def MyEvent(QEvent):
+    pass
 
 if __name__ == "__main__":
     import sys
-
+    global app
     app = QtWidgets.QApplication(sys.argv)
     global MainWindow
     MainWindow = QtWidgets.QMainWindow()
@@ -313,6 +406,7 @@ if __name__ == "__main__":
     ui.previous.clicked.connect(previous_clicked)
     ui.listaRadio.clicked.connect(lista_clicked)
     ui.stop.clicked.connect(stop_clicked)
+    ui.dodaj.clicked.connect(dodaj_clicked)
     model.setRootPath(QDir.homePath())
     model.sort(0)
     model.setNameFilters(["*.mp3", ".ogg"])
@@ -325,7 +419,21 @@ if __name__ == "__main__":
     ui.treeView.hideColumn(2)
     ui.treeView.hideColumn(3)
     ui.treeView.hideColumn(4)
+    ui.playlista.setModel(QStringListModel())
+    ui.playlista.setEditTriggers(QAbstractItemView.NoEditTriggers)
+    ui.remove.clicked.connect(remove_clicked)
+    ui.trackUp.clicked.connect(trackUp_clicked)
+    ui.trackDown.clicked.connect(trackDown_clicked)
+    ui.zapisz.clicked.connect(zapisz_clicked)
     MainWindow.show()
-    player.current_playlist = Playlist(["/home/mat-bi/tb.mp3", "/home/mat-bi/tb2.mp3"])
+    global playlist
+    playlist = Playlist(["/home/mat-bi/tb.mp3"])
+    player.current_playlist = playlist
     player.play_track()
+    global czas_qtimer
+    ui.label.setText("00:00")
+    czas_qtimer.timeout.connect(co_sekunde_ustaw_czas)
+    czas_qtimer.start()
     sys.exit(app.exec_())
+
+
