@@ -22,11 +22,19 @@
     <height>640</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Roboto</family>
+    <weight>75</weight>
+    <italic>true</italic>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Music on Window Player</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 10, 45)</string>
+   <string notr="true">background-color: rgb(0, 10, 35)</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="mouseTracking">
@@ -37,9 +45,21 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>461</width>
-      <height>621</height>
+      <width>460</width>
+      <height>622</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>460</width>
+      <height>622</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>460</width>
+      <height>622</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -61,23 +81,31 @@
     <widget class="QTreeView" name="treeView">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>20</y>
-       <width>461</width>
-       <height>561</height>
+       <x>10</x>
+       <y>30</y>
+       <width>440</width>
+       <height>550</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>461</width>
-       <height>561</height>
+       <width>440</width>
+       <height>550</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>461</width>
-       <height>561</height>
+       <width>440</width>
+       <height>550</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
@@ -88,11 +116,26 @@
      <property name="styleSheet">
       <string notr="true">background-color: rgb(10, 20, 50)</string>
      </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="dragDropMode">
+      <enum>QAbstractItemView::DragOnly</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="animated">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QPushButton" name="dodaj">
      <property name="geometry">
       <rect>
-       <x>430</x>
+       <x>423</x>
        <y>590</y>
        <width>28</width>
        <height>28</height>
@@ -118,6 +161,9 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="toolTip">
       <string>Dodaj plik/katalog do listy odtwarzania</string>
      </property>
@@ -136,9 +182,21 @@
      <rect>
       <x>490</x>
       <y>10</y>
-      <width>501</width>
+      <width>500</width>
       <height>191</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>500</width>
+      <height>191</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>500</width>
+      <height>191</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -160,7 +218,7 @@
     <widget class="QPushButton" name="mute">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>465</x>
        <y>160</y>
        <width>28</width>
        <height>28</height>
@@ -226,10 +284,22 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>120</y>
-       <width>451</width>
+       <y>114</y>
+       <width>440</width>
        <height>16</height>
       </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>440</width>
+       <height>16</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>440</width>
+       <height>16</height>
+      </size>
      </property>
      <property name="mouseTracking">
       <bool>true</bool>
@@ -383,7 +453,7 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>460</x>
+       <x>463</x>
        <y>30</y>
        <width>31</width>
        <height>16</height>
@@ -404,9 +474,21 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>441</width>
-       <height>81</height>
+       <width>440</width>
+       <height>80</height>
       </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>440</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>440</width>
+       <height>80</height>
+      </size>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(0, 0, 18);</string>
@@ -436,46 +518,67 @@
        <string>Jakiś całkiem długi tytuł z rozszerzeniem.flac</string>
       </property>
      </widget>
-     <widget class="QWidget" name="layoutWidget_2">
+     <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>131</width>
-        <height>31</height>
+        <width>52</width>
+        <height>23</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="czasy">
-       <property name="spacing">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <family>Roboto</family>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>00:00</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="czasCalkowity">
-         <property name="font">
-          <font>
-           <family>Roboto</family>
-           <pointsize>16</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>/ 00:00</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="minimumSize">
+       <size>
+        <width>52</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>52</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Roboto</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>00:00</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="czasCalkowity">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>50</y>
+        <width>60</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>60</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>60</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Roboto</family>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>/ 00:00</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="layoutWidget">
@@ -665,9 +768,21 @@
      <rect>
       <x>490</x>
       <y>220</y>
-      <width>501</width>
-      <height>411</height>
+      <width>500</width>
+      <height>413</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>413</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>413</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -689,23 +804,34 @@
     <widget class="QListView" name="playlista">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>20</y>
-       <width>501</width>
-       <height>351</height>
+       <x>10</x>
+       <y>30</y>
+       <width>480</width>
+       <height>340</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>501</width>
-       <height>351</height>
+       <width>480</width>
+       <height>340</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>501</width>
-       <height>351</height>
+       <width>480</width>
+       <height>340</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
      </property>
      <property name="acceptDrops">
       <bool>true</bool>
@@ -713,186 +839,210 @@
      <property name="styleSheet">
       <string notr="true">background-color: rgb(10, 20, 50)</string>
      </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="dragEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="dragDropMode">
+      <enum>QAbstractItemView::DropOnly</enum>
+     </property>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QPushButton" name="trackUp">
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>11</x>
        <y>380</y>
-       <width>172</width>
-       <height>32</height>
+       <width>28</width>
+       <height>28</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="opcjePlaylisty">
-      <property name="spacing">
-       <number>10</number>
-      </property>
-      <property name="sizeConstraint">
-       <enum>QLayout::SetFixedSize</enum>
-      </property>
-      <item>
-       <widget class="QPushButton" name="wczytaj">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>28</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Roboto</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="toolTip">
-         <string>Wczytaj zapisaną listę odtwarzania</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">border-color: rgb(0, 187, 255);</string>
-        </property>
-        <property name="text">
-         <string>Wczytaj</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="zapisz">
-        <property name="minimumSize">
-         <size>
-          <width>80</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <family>Roboto</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="toolTip">
-         <string>Zapisz aktualną listę odtwarzania</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Zapisz</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="minimumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>Przesuń utwór o pozycję w górę na liście odtwarzania</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>Grafiki/arrow-up.png</normaloff>
+       <disabledoff>Grafiki/arrow-up.png</disabledoff>Grafiki/arrow-up.png</iconset>
+     </property>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QPushButton" name="trackDown">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>45</x>
        <y>380</y>
-       <width>98</width>
+       <width>28</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>Przesuń utwór o pozycję w dół na liście odtwarzania</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>Grafiki/arrow-down.png</normaloff>
+       <disabledoff>Grafiki/arrow-down.png</disabledoff>Grafiki/arrow-down.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="remove">
+     <property name="geometry">
+      <rect>
+       <x>79</x>
+       <y>380</y>
+       <width>28</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>Usuń utwór z listy odtwarzania</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>Grafiki/remove.png</normaloff>
+       <disabledoff>Grafiki/remove.png</disabledoff>Grafiki/remove.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="wczytaj">
+     <property name="geometry">
+      <rect>
+       <x>321</x>
+       <y>380</y>
+       <width>80</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>28</width>
        <height>30</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>Wczytaj zapisaną listę odtwarzania</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(0, 187, 255);</string>
+     </property>
+     <property name="text">
+      <string>Wczytaj</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="zapisz">
+     <property name="geometry">
+      <rect>
+       <x>411</x>
+       <y>380</y>
+       <width>80</width>
+       <height>28</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="operacjePlaylisty">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetFixedSize</enum>
-      </property>
-      <item>
-       <widget class="QPushButton" name="trackUp">
-        <property name="minimumSize">
-         <size>
-          <width>28</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>28</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Przesuń utwór o pozycję w górę na liście odtwarzania</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>Grafiki/arrow-up.png</normaloff>
-          <disabledoff>Grafiki/arrow-up.png</disabledoff>Grafiki/arrow-up.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="trackDown">
-        <property name="minimumSize">
-         <size>
-          <width>28</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>28</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Przesuń utwór o pozycję w dół na liście odtwarzania</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>Grafiki/arrow-down.png</normaloff>
-          <disabledoff>Grafiki/arrow-down.png</disabledoff>Grafiki/arrow-down.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="remove">
-        <property name="minimumSize">
-         <size>
-          <width>28</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>28</width>
-          <height>28</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Usuń utwór z listy odtwarzania</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>Grafiki/remove.png</normaloff>
-          <disabledoff>Grafiki/remove.png</disabledoff>Grafiki/remove.png</iconset>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>80</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>Zapisz aktualną listę odtwarzania</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="text">
+      <string>Zapisz</string>
+     </property>
+     <property name="shortcut">
+      <string>Ctrl+S</string>
+     </property>
     </widget>
    </widget>
    <widget class="Line" name="line">
