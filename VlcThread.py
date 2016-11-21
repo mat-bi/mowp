@@ -106,4 +106,4 @@ class VlcThread(threading.Thread):
                 self.player.lock.release()
             except RuntimeError:
                 pass
-            time.sleep(0.01)
+            time.sleep(0.001)

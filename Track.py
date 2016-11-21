@@ -13,7 +13,10 @@ class Track:
             title.append(os.path.basename(path))
 
             self.info = {"artist": ["Nieznany wykonawca"], "title": title}
-        self.length = File(path).info.length
+        try:
+            self.length = File(path).info.length
+        except:
+            self.length = 0
 
     @property
     def path(self):

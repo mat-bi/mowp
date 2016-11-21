@@ -102,10 +102,10 @@ class Playlist():
             self._list.insert(number, t)
             self._list.remove(None)
 
-    '''def __getitem__(self, item):
+    def __getitem__(self, item):
         with self.rlock:
             return self._list[item]
-
+'''
     def __setitem__(self, key, value):
         with self.rlock:
             self._list[key] = value'''
