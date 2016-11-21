@@ -644,7 +644,13 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>Grafiki/shuffle.png</normaloff>Grafiki/shuffle.png</iconset>
+          <normaloff>Grafiki/shuffleOff.png</normaloff>Grafiki/shuffleOff.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
         </property>
         <property name="shortcut">
          <string>R</string>
