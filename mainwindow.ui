@@ -40,7 +40,7 @@
    <property name="mouseTracking">
     <bool>false</bool>
    </property>
-   <widget class="QGroupBox" name="fieleBrowserWindow">
+   <widget class="QGroupBox" name="fileBrowserWindow">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -177,6 +177,110 @@
       <iconset>
        <normaloff>Grafiki/add.png</normaloff>
        <disabledoff>Grafiki/add.png</disabledoff>Grafiki/add.png</iconset>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ciemny">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>590</y>
+       <width>80</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>Przełącz na ciemny motyw</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(0, 187, 255);</string>
+     </property>
+     <property name="text">
+      <string>Ciemny</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>Grafiki/Motyw-on.png</normaloff>Grafiki/Motyw-on.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>40</width>
+       <height>10</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="jasny">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>590</y>
+       <width>80</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>28</width>
+       <height>28</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Roboto</family>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="toolTip">
+      <string>Przełącz na ciemny motyw</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-color: rgb(0, 187, 255);</string>
+     </property>
+     <property name="text">
+      <string>Jasny</string>
+     </property>
+     <property name="icon">
+      <iconset>
+       <normaloff>Grafiki/Motyw-off.png</normaloff>Grafiki/Motyw-off.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>40</width>
+       <height>10</height>
+      </size>
      </property>
     </widget>
    </widget>
@@ -1005,7 +1109,7 @@
      <property name="maximumSize">
       <size>
        <width>28</width>
-       <height>30</height>
+       <height>28</height>
       </size>
      </property>
      <property name="font">
