@@ -118,6 +118,9 @@
        <bold>true</bold>
       </font>
      </property>
+     <property name="toolTip">
+      <string>Dodaj plik/katalog do listy odtwarzania</string>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -510,6 +513,9 @@
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
+        <property name="toolTip">
+         <string>Przewiń do tyłu</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -575,6 +581,9 @@
         </property>
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="toolTip">
+         <string>Przewiń do przodu</string>
         </property>
         <property name="text">
          <string/>
@@ -806,6 +815,9 @@
           <height>28</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Przesuń utwór o pozycję w górę na liście odtwarzania</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -830,6 +842,9 @@
           <height>28</height>
          </size>
         </property>
+        <property name="toolTip">
+         <string>Przesuń utwór o pozycję w dół na liście odtwarzania</string>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -853,6 +868,9 @@
           <width>28</width>
           <height>28</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Usuń utwór z listy odtwarzania</string>
         </property>
         <property name="text">
          <string/>
